@@ -147,10 +147,6 @@ Target.create "Build" (fun _ ->
         DotNet.build id dir)
 )
 
-Target.create "UnitTests" (fun _ ->
-    runDotNet "run" unitTestsPath
-)
-
 Target.create "PrepareRelease" (fun _ ->
     Git.Branches.checkout "" false "master"
     Git.CommandHelper.directRunGitCommand "" "fetch origin" |> ignore
@@ -222,7 +218,6 @@ Target.create "Push" (fun _ -> pushPackage [] )
 // Build order
 "Clean"
     ==> "Build"
-    ==> "UnitTests"
     ==> "PrepareRelease"
     ==> "Pack"
     ==> "Push"

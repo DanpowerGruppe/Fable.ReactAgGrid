@@ -10,3 +10,6 @@ test/obj/
 .fake/*
 tests/*
 reports/*
+src/bin/*
+src/obj/*
+tools/*
