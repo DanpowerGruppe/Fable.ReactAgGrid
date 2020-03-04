@@ -6,7 +6,7 @@ open Elmish
 let init() = 
     let initAgGridState, initAgGridCmd = Components.AgGrid.State.init()
     
-    { CurrentPage = Introduction
+    { CurrentPage = AgGridExample
       AgGrid = initAgGridState }, Cmd.batch [ initAgGridCmd ]
 
 let update msg state = 

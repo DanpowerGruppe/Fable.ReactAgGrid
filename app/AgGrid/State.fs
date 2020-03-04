@@ -10,16 +10,16 @@ let rows = [|DateTimeOffset.Now.AddDays(-1.);DateTimeOffset.Now|]
 let values = 
     [|0..1|]
     |> Array.map (fun x ->
-        [|0..1|]
-        |> Array.map (fun y -> x *y |> float ))
+        [|2..3|]
+        |> Array.map (fun y -> x + y |> float ))
 
 let grid = 
-    printfn "grid"
     [| for j,date in rows |> Array.indexed ->
         createObj [
             yield "date" ==> date.UtcDateTime
             for i in 0..headers.Length-1 ->
-                string i ==> values.[j]]|]
+                printfn "value %A" values.[j].[i]
+                string i ==> values.[j].[i]]|]
 
 let initTableRep = 
     {
@@ -29,9 +29,9 @@ let initTableRep =
         Grid = grid
         ActiveCell = None
     }    
+printfn "initTable %A" initTableRep    
 
 let init() = { TableRep = initTableRep }, Cmd.none
-printfn "init"
 
 let update msg state = 
     match msg with 
