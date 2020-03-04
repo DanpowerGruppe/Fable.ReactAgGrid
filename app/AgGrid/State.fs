@@ -13,21 +13,20 @@ let values =
         [|0..1|]
         |> Array.map (fun y -> x *y |> float ))
 
-let grid = 
+let grid (values:float [] []) = 
     printfn "grid"
     [| for j,date in rows |> Array.indexed ->
         createObj [
             yield "date" ==> date.UtcDateTime
             for i in 0..headers.Length-1 ->
-                string i ==> values.[j]]|]
+                string i ==> values.[j].[i]]|]
 
 let initTableRep = 
     {
         HeadCol = headers
         HeadRow = rows
         Values = values
-        Grid = grid
-        ActiveCell = None
+        Grid = grid values
     }    
 
 let init() = { TableRep = initTableRep }, Cmd.none
@@ -35,9 +34,9 @@ printfn "init"
 
 let update msg state = 
     match msg with 
-    | SetActive (attr,date) ->
-        let tableRep =
-            { state.TableRep with ActiveCell = Some(date,attr)}
-        {state with TableRep = tableRep}, []
     | SetGridInput (input) ->
-            state,[]        //TODO
+        let mutable newValues = state.TableRep.Values
+        newValues.[input.Col].[input.Row] <- input.Value.Replace(",",".") |> float
+        let newGrid = grid newValues
+        let newRep = {state.TableRep with Grid = newGrid }        
+        {state with TableRep = newRep},[]        //TODO
