@@ -36,6 +36,7 @@ open Fake.Tools
 // --------------------------------------------------------------------------------------
 
 let deployDir = Path.getFullName "./deploy"
+let clientPath = Path.getFullName "./app"
 let release = ReleaseNotes.load "RELEASE_NOTES.md"
 
 let buildDir  = "./build/"
@@ -214,6 +215,44 @@ let pushPackage _ =
         let cmd = nugetCmd fileName key
         runDotNet cmd buildDir)
 Target.create "Push" (fun _ -> pushPackage [] )
+
+let nodeTool = platformTool "node" "node.exe"
+let yarnTool = platformTool "yarn" "yarn.cmd"
+
+Target.create "InstallClient" (fun _ ->
+    printfn "Node version:"
+    runTool nodeTool "--version" __SOURCE_DIRECTORY__
+    printfn "Yarn version:"
+    runTool yarnTool "--version" __SOURCE_DIRECTORY__
+    runTool yarnTool "install --frozen-lockfile" __SOURCE_DIRECTORY__
+    runDotNet "restore" clientPath
+)
+
+let openBrowser url =
+    ShellCommand url
+    |> CreateProcess.fromCommand
+    |> CreateProcess.ensureExitCodeWithMessage "opening browser failed"
+    |> Proc.run
+    |> ignore
+
+Target.create "Run" (fun _ ->
+    let fablewatch = async { runTool yarnTool "webpack-dev-server" __SOURCE_DIRECTORY__ }
+
+    let browser = async {
+        do! Async.Sleep 5000
+        openBrowser "http://localhost:8080"
+    }
+
+    [ fablewatch; browser ]
+    |> Async.Parallel
+    |> Async.RunSynchronously
+    |> ignore
+)
+
+
+"Clean"
+    ==> "InstallClient"
+    ==> "Run"
 
 // Build order
 "Clean"

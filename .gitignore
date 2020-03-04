@@ -13,3 +13,6 @@ reports/*
 src/bin/*
 src/obj/*
 tools/*
+packages/
+paket-files/
+node_modules/
