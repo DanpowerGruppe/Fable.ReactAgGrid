@@ -4,7 +4,7 @@
 [![Fable.ReactAgGrid on Nuget](https://buildstats.info/nuget/Fable.ReactAgGrid)](https://www.nuget.org/packages/Fable.ReactAgGrid/)
 
 ## Example TableInput
-![AgGridTableImput](images/agGridExample.png "clustering image")
+![AgGridTableImput](https://github.com/DanpowerGruppe/Fable.ReactAgGrid/blob/master/images/agGridExample.PNG "aggrid image")
 
 ## Start test app
 - Start your test app by cloning this repository and the execute:
