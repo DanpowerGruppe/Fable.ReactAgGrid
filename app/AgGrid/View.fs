@@ -11,8 +11,6 @@ let agGrid (tableRep :TableRep) dispatch =
     div [ Class "ag-theme-balham"; Style [ Height "400px"; Width "800px"  ] ] [
         grid [
             ColumnDefs [|
-                // { ColumnDef.Create "Name" "name" with filter = true; checkboxSelection = true }                                
-                // { ColumnDef.Create "UV" "uv" with sortable = true; }
                 yield {ColumnDef.Create ("Datum") ("date") with editable = false; pinned = "left"}
                 for i,header in tableRep.HeadCol |> Array.indexed ->
                     {ColumnDef.Create (header) (string i)

@@ -1,6 +1,10 @@
 # Fable Binding for ReactAgGrid
 
+## Example TableInput
+![AgGridTableImput](images/agGridExample.png "clustering image")
+
 ## Example agGrid
+Here is an exmaple how to use agGrid
 ```fs
 
 type GridInput =
@@ -16,7 +20,6 @@ type TableRep =
         HeadRow : DateTimeOffset []
         Values : float [] []
         Grid : obj []
-        ActiveCell : (DateTimeOffset * string) option
     }    
 
 type Model =
@@ -28,14 +31,18 @@ type State = {
 
 }
 
+type Msg = 
+| SetGridInput of GridInput
+
 open Fable.ReactAgGrid
+
 let agGrid (tableRep :TableRep) dispatch =
-    div [ Id "myGrid"; Class "ag-theme-balham" ;Style [ Height "100%"; Width "100%"  ] ] [
+    div [ Class "ag-theme-balham"; Style [ Height "400px"; Width "800px"  ] ] [
         grid [
             ColumnDefs [|
                 yield {ColumnDef.Create ("Datum") ("date") with editable = false; pinned = "left"}
-                for i,attr in tableRep.HeadCol |> Array.indexed ->
-                    {ColumnDef.Create (attr.Name + " [" + attr.Unit + "] ") (string i)
+                for i,header in tableRep.HeadCol |> Array.indexed ->
+                    {ColumnDef.Create (header) (string i)
                         with onCellValueChanged = (fun ev -> dispatch (SetGridInput ({Row = int ev.node.id; Col = int ev.colDef.field; Value = string ev.newValue})))}
             |]
             RowData (tableRep.Grid |> Array.map box)
@@ -44,3 +51,4 @@ let agGrid (tableRep :TableRep) dispatch =
             StopEditingWhenGridLosesFocus true
         ] [ ]
     ]
+```
