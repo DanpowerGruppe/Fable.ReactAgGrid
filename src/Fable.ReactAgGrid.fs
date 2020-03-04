@@ -4,7 +4,7 @@ open Fable.Core
 open Fable.Core.JsInterop 
 open Fable.React
 
-type Cheat =
+type ColDef =
     { headerName : string
       field : string }
  
@@ -18,7 +18,7 @@ type Event =
     { data : obj
       newValue : obj
       oldValue : obj
-      colDef: Cheat
+      colDef: ColDef
       column: Column
       node : RowNode }
 

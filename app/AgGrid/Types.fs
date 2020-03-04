@@ -15,7 +15,6 @@ type TableRep =
         HeadRow : DateTimeOffset []
         Values : float [] []
         Grid : obj []
-        ActiveCell : (DateTimeOffset * string) option
     }    
 
 type Model =
@@ -28,4 +27,3 @@ type State = {
 
 type Msg = 
 | SetGridInput of GridInput
-| SetActive of string * DateTimeOffset

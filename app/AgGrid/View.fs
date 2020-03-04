@@ -7,8 +7,7 @@ open Fable.React.Props
 open Fable.ReactAgGrid    
 open Fable.Core.JsInterop
 let agGrid (tableRep :TableRep) dispatch =
-    div [ Id "myGrid"; Class "ag-theme-balham" ;Style [ Height "100%"; Width "100%"  ] ] [
-        p[] [unbox "blubb"]
+    div [ Class "ag-theme-balham"; Style [ Height "400px"; Width "800px"  ] ] [
         grid [
             ColumnDefs [|
                 yield {ColumnDef.Create ("Datum") ("date") with editable = false; pinned = "left"}
@@ -20,7 +19,6 @@ let agGrid (tableRep :TableRep) dispatch =
             RowData (tableRep.Grid |> Array.map box)
             RowHeight 36.
             RowStyle (createObj [ "font-size" ==> "16px" ])
-            //             height = "20px" |}
             StopEditingWhenGridLosesFocus true
         ] [ ]
     ]
