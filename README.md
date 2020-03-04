@@ -2,17 +2,33 @@
 
 ## Example agGrid
 ```fs
-open Fable.ReactAgGrid
+
+type GridInput =
+    {
+        Row : int
+        Col : int
+        Value : string
+    }
 
 type TableRep =
     {
-        HeadCol :  []
+        HeadCol : string []
         HeadRow : DateTimeOffset []
-        LocalMeasures : Data option [] []
+        Values : float [] []
         Grid : obj []
-        ActiveCell : (DateTimeOffset * Id) option
-    }
+        ActiveCell : (DateTimeOffset * string) option
+    }    
 
+type Model =
+    {
+        TableRep : TableRep option
+    }
+type State = {
+    TableRep : TableRep 
+
+}
+
+open Fable.ReactAgGrid
 let agGrid (tableRep :TableRep) dispatch =
     div [ Id "myGrid"; Class "ag-theme-balham" ;Style [ Height "100%"; Width "100%"  ] ] [
         grid [
