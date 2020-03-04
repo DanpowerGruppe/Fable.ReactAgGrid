@@ -1,7 +1,16 @@
 # Fable Binding for ReactAgGrid
 
+
+[![Fable.ReactAgGrid on Nuget](https://buildstats.info/nuget/Fable.ReactAgGrid)](https://www.nuget.org/packages/Fable.ReactAgGrid/)
+
 ## Example TableInput
 ![AgGridTableImput](images/agGridExample.png "clustering image")
+
+## Start test app
+- Start your test app by cloning this repository and the execute:
+```
+build.cmd run
+```
 
 ## Example agGrid
 Here is an exmaple how to use agGrid
