@@ -29,6 +29,7 @@ type ColumnDef =
       filter : bool;
       checkboxSelection : bool
       editable : bool
+      resizable : bool
       pinned : string
       cellStyle : obj
       onCellValueChanged : Event -> unit }
@@ -40,7 +41,8 @@ type ColumnDef =
             checkboxSelection = false;
             editable = true;
             pinned = ""
-            cellStyle = createObj["height" ==> "36px"]
+            resizable = true;
+            cellStyle = createObj[] 
             onCellValueChanged =
                 (fun x -> printfn "Column %s Row %s Value %A" x.colDef.field x.node.id x.newValue ) }
 
@@ -49,6 +51,7 @@ type Props =
     | ColumnDefs of ColumnDef array
     | RowData of obj array
     | RowHeight of float
+    | HeaderHeight of float
     | RowStyle of obj
     | StopEditingWhenGridLosesFocus of bool
 
