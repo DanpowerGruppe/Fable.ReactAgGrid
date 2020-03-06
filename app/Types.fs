@@ -1,7 +1,7 @@
 module App.Types
 
 type Page =
-    | Introduction
+    | AgGridExample
     | Usage
 
 type State = {

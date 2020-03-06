@@ -1,7 +1,6 @@
 module Components.AgGrid.Types
 
 open System 
-open Fable.React
 type GridInput =
     {
         Row : int

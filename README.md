@@ -1,25 +1,57 @@
 # Fable Binding for ReactAgGrid
 
+
+[![Fable.ReactAgGrid on Nuget](https://buildstats.info/nuget/Fable.ReactAgGrid)](https://www.nuget.org/packages/Fable.ReactAgGrid/)
+
+## Example TableInput
+![AgGridTableImput](https://github.com/DanpowerGruppe/Fable.ReactAgGrid/blob/master/images/agGridExample.PNG "aggrid image")
+
+## Start test app
+- Start your test app by cloning this repository and then execute:
+```
+build.cmd run
+```
+
 ## Example agGrid
+Here is an exmaple how to use agGrid
 ```fs
-open Fable.ReactAgGrid
+
+type GridInput =
+    {
+        Row : int
+        Col : int
+        Value : string
+    }
 
 type TableRep =
     {
-        HeadCol :  []
+        HeadCol : string []
         HeadRow : DateTimeOffset []
-        LocalMeasures : Data option [] []
+        Values : float [] []
         Grid : obj []
-        ActiveCell : (DateTimeOffset * Id) option
+    }    
+
+type Model =
+    {
+        TableRep : TableRep option
     }
+type State = {
+    TableRep : TableRep 
+
+}
+
+type Msg = 
+| SetGridInput of GridInput
+
+open Fable.ReactAgGrid
 
 let agGrid (tableRep :TableRep) dispatch =
-    div [ Id "myGrid"; Class "ag-theme-balham" ;Style [ Height "100%"; Width "100%"  ] ] [
+    div [ Class "ag-theme-balham"; Style [ Height "400px"; Width "800px"  ] ] [
         grid [
             ColumnDefs [|
                 yield {ColumnDef.Create ("Datum") ("date") with editable = false; pinned = "left"}
-                for i,attr in tableRep.HeadCol |> Array.indexed ->
-                    {ColumnDef.Create (attr.Name + " [" + attr.Unit + "] ") (string i)
+                for i,header in tableRep.HeadCol |> Array.indexed ->
+                    {ColumnDef.Create (header) (string i)
                         with onCellValueChanged = (fun ev -> dispatch (SetGridInput ({Row = int ev.node.id; Col = int ev.colDef.field; Value = string ev.newValue})))}
             |]
             RowData (tableRep.Grid |> Array.map box)
@@ -28,3 +60,4 @@ let agGrid (tableRep :TableRep) dispatch =
             StopEditingWhenGridLosesFocus true
         ] [ ]
     ]
+```
