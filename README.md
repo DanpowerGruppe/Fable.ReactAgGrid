@@ -7,7 +7,7 @@
 ![AgGridTableImput](https://github.com/DanpowerGruppe/Fable.ReactAgGrid/blob/master/images/agGridExample.PNG "aggrid image")
 
 ## Start test app
-- Start your test app by cloning this repository and the execute:
+- Start your test app by cloning this repository and then execute:
 ```
 build.cmd run
 ```
