@@ -16,7 +16,7 @@
         "@fortawesome/fontawesome-free": "^5.12.1",
         "babel-loader": "^8.0.6",
         "bulma": "^0.8.0",
-        "bulma-calendar": "0.1.7",
+        "bulma-calendar": "6.0.7",
         "bulma-checkradio": "2.1.1",
         "bulma-extensions": "6.2.7",
         "copy-webpack-plugin": "^5.1.1",
