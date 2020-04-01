@@ -24,6 +24,9 @@ type Event =
 
 type ColumnDef =
     { headerName : string
+      columnGroupShow : bool
+      headerClass : obj
+      suppressColumnsToolPanel: bool
       field : string
       sortable : bool
       filter : bool;
@@ -35,6 +38,9 @@ type ColumnDef =
       onCellValueChanged : Event -> unit }
     static member Create headerName field =
         {   headerName = headerName;
+            columnGroupShow = false
+            headerClass = createObj[] 
+            suppressColumnsToolPanel = false
             field = field;
             sortable = false;
             filter = false;
@@ -47,7 +53,7 @@ type ColumnDef =
                 (fun x -> printfn "Column %s Row %s Value %A" x.colDef.field x.node.id x.newValue ) }
 
 
-type Props =
+type GridProps =
     | ColumnDefs of ColumnDef array
     | RowData of obj array
     | RowHeight of float
@@ -55,5 +61,5 @@ type Props =
     | RowStyle of obj
     | StopEditingWhenGridLosesFocus of bool
 
-let inline grid (props : Props list) (elems : ReactElement list) : ReactElement =
+let inline grid (props : GridProps list) (elems : ReactElement list) : ReactElement =
     ofImport "AgGridReact" "ag-grid-react" (keyValueList CaseRules.LowerFirst props) elems
