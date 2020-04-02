@@ -1,7 +1,7 @@
 # Fable Binding for ReactAgGrid
 
-
 [![Fable.ReactAgGrid on Nuget](https://buildstats.info/nuget/Fable.ReactAgGrid)](https://www.nuget.org/packages/Fable.ReactAgGrid/)
+[![Build Status](https://dev.azure.com/DanpowerEnergyData/Fable.ReactAgGrid/_apis/build/status/DanpowerGruppe.Fable.ReactAgGrid?branchName=master)](https://dev.azure.com/DanpowerEnergyData/Fable.ReactAgGrid/_build/latest?definitionId=11&branchName=master)
 
 ## Example TableInput
 ![AgGridTableImput](https://github.com/DanpowerGruppe/Fable.ReactAgGrid/blob/master/images/agGridExample.PNG "aggrid image")
