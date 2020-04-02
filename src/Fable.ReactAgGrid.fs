@@ -103,6 +103,7 @@ let ColumnDef options =
 
 type GridOptions =
     | ColumnDefs of obj array 
+    | DefaultColDef of obj
     | RowData of obj array
     | RowHeight of float
     | HeaderHeight of float
