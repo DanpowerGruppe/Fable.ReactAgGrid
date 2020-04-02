@@ -1,8 +1,10 @@
 module Fable.ReactAgGrid
 
+open Browser.Types
 open Fable.Core
 open Fable.Core.JsInterop 
 open Fable.React
+open Fable.React.Helpers
 
 type ColDef =
     { headerName : string
@@ -22,71 +24,79 @@ type Event =
       column: Column
       node : RowNode }
 
-// type ColumnDef =
-//     { headerName : string
-//       columnGroupShow : bool
-//       headerClass : obj
-//       suppressColumnsToolPanel: bool
-//       field : string
-//       sortable : bool
-//       filter : bool;
-//       checkboxSelection : bool
-//       editable : bool
-//       resizable : bool
-//       pinned : string
-//       cellStyle : obj
-//       width : string option
-//       onCellValueChanged : Event -> unit }
-//     static member Create headerName field =
-//         {   headerName = headerName;
-//             columnGroupShow = false
-//             headerClass = createObj[] 
-//             suppressColumnsToolPanel = false
-//             field = field;
-//             sortable = false;
-//             filter = false;
-//             checkboxSelection = false;
-//             editable = true;
-//             pinned = ""
-//             resizable = true;
-//             cellStyle = createObj[] 
-//             width = None
-//             onCellValueChanged =
-//                 (fun x -> printfn "Column %s Row %s Value %A" x.colDef.field x.node.id x.newValue ) }
+type CellEditorParams = 
+    { value : obj 
+      keyPress : float 
+      charPress : string
+      column: Column;
+      node: RowNode;
+      rowIndex: float  
+  
+    //   api: GridApi; TODO
+  
+    //   columnApi: ColumnApi; TODO
+      cellStartedEdit: bool;
+      // the grid's context object
+      context: obj;
+  
+      // callback to tell grid a key was pressed - useful to pass control key events (tab, arrows etc)
+      // back to grid - however you do
+      onKeyDown: (KeyboardEvent) -> unit;
 
-
+      // Callback to tell grid to stop editing the current cell. pass 'false' to prevent navigation moving
+      // to the next cell if grid property enterMovesDownAfterEdit=true
+      stopEditing: (bool) -> unit;
+  
+      // A reference to the DOM element representing the grid cell that your component will live inside. Useful if you
+      // want to add event listeners or classes at this level. This is the DOM element that gets browser focus when selecting cells.
+      eGridCell: HTMLElement;
+  
+      // Utility function to parse a value using the column's colDef.valueParser
+      parseValue: (obj) -> obj;
+  
+      // Utility function to format a value using the column's colDef.valueFormatter
+      formatValue: (obj) -> obj;}      
 
 type ColumnDefOptions = 
     | HeaderName of string
     | ColumnGroupShow of bool
     | HeaderClass of obj
+    | ToolPanelClass of obj    
     | SuppressColumnsToolPanel of bool
+    | SuppressFiltersToolPanel of bool
     | Field of string
-    | Sortable of bool
+    | ColId of string
+    | Type of string array
+    | Width of int
+    | MinWidth of int
+    | MaxWidth of int
+    | Flex of int
     | Filter of bool
-    | CheckboxSelection of bool
-    | Editable of bool
-    | Resizable of bool
+    | FilterParams of obj // TODO
+    | FloatingFilterComponent of obj // TODO
+    | FloatingFilterComponentParams of obj // TODO
+    | Hide of bool
     | Pinned of string
+    | LockPosition of bool
+    | LockVisible of bool
+    | LockPinned of bool
+    | Sortable of bool
+    | Sort of string option
+    | SortedAt of int // TODO
+    | SortingOrder of string option
+    | Resizable of bool
+    | HeaderTooltip of obj //TODO
+    | TooltipField of obj //TODO
+    | CheckboxSelection of bool
+    | RowDrag of bool //TODO enable functions to be added
+    | DndSource of bool //TODO enable functions to be added
+    | Editable of bool
     | CellStyle of obj
-    | Width of string
+    | CellClass of obj
+    | AutoHeight of bool
+    | SingleClickEdit of bool
     | OnCellValueChanged of (Event -> unit)
-    // member this.LowerFirstString = 
-    //     match this with
-    //     | HeaderName _ -> "headerName"
-    //     | ColumnGroupShow _ -> "columnGroupShow"
-    //     | HeaderClass _ -> "headerClass"
-    //     | SuppressColumnsToolPanel _ -> "suppressColumnsToolPanel"
-    //     | Field _ -> "field"
-    //     | Sortable _ -> "sortable"
-    //     | Filter _ -> "filter"
-    //     | CheckboxSelection _ -> "checkboxSelection"
-    //     | Editable _ -> "editable"
-    //     | Resizable _ -> "pinned"
-    //     | Pinned _ -> "resizable"
-    //     | CellStyle _ -> "cellStyle"
-    //     | Width _ -> "width"
-    //     | OnCellValueChanged _ -> "onCellValueChanged"
+    // TODO add remaining options
 
 let ColumnDef options = 
     keyValueList CaseRules.LowerFirst options
@@ -99,9 +109,5 @@ type GridOptions =
     | RowStyle of obj
     | StopEditingWhenGridLosesFocus of bool
 
-  
-
 let inline grid (props : GridOptions list) (elems : ReactElement list) : ReactElement =
-    let test = keyValueList CaseRules.LowerFirst props  
-    printfn "%A" test
     ofImport "AgGridReact" "ag-grid-react" (keyValueList CaseRules.LowerFirst props) elems
