@@ -20,7 +20,7 @@
         "bulma-checkradio": "2.1.1",
         "bulma-extensions": "6.2.7",
         "copy-webpack-plugin": "^5.1.1",
-        "css-loader": "^3.4.2",
+        "css-loader": "^3.5.0",
         "fable-compiler": "^2.4.15",
         "fable-loader": "^2.1.8",
         "file-loader": "^6.0.0",
