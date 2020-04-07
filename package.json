@@ -40,6 +40,6 @@
     },
     "dependencies": {
         "ag-grid-community": "^23.0.2",
-        "ag-grid-react": "^23.0.2"
+        "ag-grid-react": "^23.0.3"
     }
 }
