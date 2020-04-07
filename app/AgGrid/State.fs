@@ -50,4 +50,4 @@ let update msg state =
         newValues.[input.Row].[input.Col] <- input.Value.Replace(",",".") |> float
         let newGrid = grid newValues
         let newRep = {state.TableRep with Grid = newGrid }        
-        {state with TableRep = newRep},[]        
+        {state with TableRep = newRep},[]           
