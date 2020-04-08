@@ -46,18 +46,21 @@ type Msg =
 open Fable.ReactAgGrid
 
 let agGrid (tableRep :TableRep) dispatch =
-    div [ Class "ag-theme-balham"; Style [ Height "400px"; Width "800px"  ] ] [
-        grid [
-            ColumnDefs [|
-                yield {ColumnDef.Create ("Datum") ("date") with editable = false; pinned = "left"}
-                for i,header in tableRep.HeadCol |> Array.indexed ->
-                    {ColumnDef.Create (header) (string i)
-                        with onCellValueChanged = (fun ev -> dispatch (SetGridInput ({Row = int ev.node.id; Col = int ev.colDef.field; Value = string ev.newValue})))}
-            |]
-            RowData (tableRep.Grid |> Array.map box)
-            RowHeight 36.
-            RowStyle (createObj [ "font-size" ==> "16px" ])
-            StopEditingWhenGridLosesFocus true
+    div [ Class "ag-theme-balham"; Style [ Height "400px"; CSSProp.Width "800px"  ] ] [
+        Grid.grid [ 
+            Grid.ColumnDefs [|  Grid.ColumnDef [Grid.HeaderName "Datum"; Grid.Field "date"; Grid.Sortable true]
+                                for i,header in tableRep.HeadCol |> Array.indexed do
+                                    Grid.ColumnDef 
+                                              [ Grid.HeaderName header; 
+                                                Grid.Field (string i); 
+                                                Grid.Width 100
+                                                Grid.Editable true
+                                                Grid.Sortable true
+                                                Grid.OnCellValueChanged (fun ev -> dispatch (SetGridInput ({Row = int ev.node.id; Col = int ev.colDef.field; Value = string ev.newValue})))] |]                             
+            Grid.RowData (tableRep.Grid |> Array.map box)
+            Grid.RowHeight 36.
+            Grid.RowStyle (createObj [ "font-size" ==> "16px" ])
+            Grid.StopEditingWhenGridLosesFocus true
         ] [ ]
     ]
 ```
