@@ -26,3 +26,4 @@ type State = {
 
 type Msg = 
 | SetGridInput of GridInput
+ 
