@@ -15,7 +15,7 @@
         "@babel/runtime": "^7.8.4",
         "@fortawesome/fontawesome-free": "^5.12.1",
         "babel-loader": "^8.0.6",
-        "bulma": "^0.8.0",
+        "bulma": "^0.8.2",
         "bulma-calendar": "6.0.7",
         "bulma-checkradio": "2.1.1",
         "bulma-extensions": "6.2.7",
