@@ -1,3 +1,5 @@
+### 0.7.0 - 15.04.2020
+* add cellStyle
 ### 0.6.0 - 07.04.2020
 * add requiredqualifiedaccess
 ### 0.5.0 - 02.04.2020
