@@ -17,6 +17,12 @@ let agGrid (tableRep :TableRep) dispatch =
                                                 Grid.Width 100
                                                 Grid.Editable true
                                                 Grid.Sortable true
+                                                Grid.CellStyle 
+                                                    (fun parameter -> 
+                                                        if (parameter.value :?> int) = 3 then    
+                                                            (createObj [ "backgroundColor" ==> "red" ])
+                                                        else
+                                                            (createObj [  ]))
                                                 Grid.OnCellValueChanged (fun ev -> dispatch (SetGridInput ({Row = int ev.node.id; Col = int ev.colDef.field; Value = string ev.newValue})))] |]                             
             Grid.RowData (tableRep.Grid |> Array.map box)
             Grid.RowHeight 36.
