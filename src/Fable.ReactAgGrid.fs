@@ -56,8 +56,25 @@ module Grid =
           /// Utility function to parse a value using the column's colDef.valueParser
           parseValue: (obj) -> obj;
 
-          /// Utility function to format a value using the column's colDef.valueFormatter
+          // Utility function to format a value using the column's colDef.valueFormatter
           formatValue: (obj) -> obj;}
+
+    type CellClassParams = {
+        // The value to be rendered.
+        value: obj
+        // The row (from the rowData array, where value was taken) been rendered.
+        data: obj
+        // The node associated to this row
+        node: RowNode
+        // The colDef been rendered
+        colDef: ColDef
+        // The index of the row about to be rendered
+        rowIndex: int
+        // A reference to the ag-Grid API.
+        // api: GridApi
+        // If provided in gridOptions, a context object
+        context: obj
+    }
 
     type ColumnDefOptions =
         | HeaderName of string
@@ -96,8 +113,8 @@ module Grid =
         | RowDrag of bool //TODO enable functions to be added
         | DndSource of bool //TODO enable functions to be added
         | Editable of bool
-        | CellStyle of obj
-        | CellClass of obj
+        | CellStyle of (CellClassParams -> obj)
+        | CellClass of (CellClassParams -> obj)
         | AutoHeight of bool
         | SingleClickEdit of bool
         | OnCellValueChanged of (Event -> unit)
