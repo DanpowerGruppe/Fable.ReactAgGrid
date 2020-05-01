@@ -13,7 +13,7 @@ build.cmd run
 ```
 
 ## Example agGrid
-Here is an exmaple how to use agGrid
+Here is an example how to use agGrid
 ```fs
 
 type GridInput =
