@@ -21,7 +21,7 @@
         "bulma-extensions": "6.2.7",
         "copy-webpack-plugin": "^5.1.1",
         "css-loader": "^3.5.3",
-        "fable-compiler": "^2.8.4",
+        "fable-compiler": "^2.9.0",
         "fable-loader": "^2.1.8",
         "file-loader": "^6.0.0",
         "html-webpack-plugin": "^4.3.0",
