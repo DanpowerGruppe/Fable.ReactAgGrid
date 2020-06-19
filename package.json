@@ -39,7 +39,7 @@
         "whatwg-fetch": "^3.0.0"
     },
     "dependencies": {
-        "ag-grid-community": "^23.2.0",
+        "ag-grid-community": "^23.2.1",
         "ag-grid-react": "^23.2.0"
     }
 }
