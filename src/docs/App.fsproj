@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <DefineConstants>FABLE_COMPILER</DefineConstants>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Router.fs" />
+    <Compile Include="Domain.fs" />
+    <Compile Include="Shared.fs" />
+    <Compile Include="views\Fable.ReactAgGrid\Fable.ReactAgGrid.fs" />
+    <Compile Include="views\Fable.ReactAgGrid\Fable.ReactAgGridExampleGrid.fs" />
+    <Compile Include="View.fs" />
+    <Compile Include="State.fs" />
+    <Compile Include="App.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Fable.ReactAgGrid.fsproj" />
+  </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
+</Project>

@@ -10,3 +10,23 @@ nuget Fable.Elmish
 nuget Fable.Elmish.React
 nuget Fable.Elmish.Browser
 nuget Fulma
+
+group Docs
+    source https://api.nuget.org/v3/index.json
+    framework: netstandard2.0
+    nuget FSharp.Core
+    nuget Fable.Core
+    nuget Fable.Elmish.React
+    nuget Fable.React
+    nuget Feliz.Router
+    nuget Zanaptak.TypedCssClasses
+    nuget Fable.SimpleHttp
+    nuget Feliz.ElmishComponents
+    nuget Feliz.UseDeferred
+    nuget Feliz.Popover
+    nuget Feliz
+    nuget Feliz.Markdown
+    nuget Fable.Elmish.Debugger
+    nuget Fable.Elmish.HMR
+    nuget Feliz.Bulma
+    nuget Chia.Client

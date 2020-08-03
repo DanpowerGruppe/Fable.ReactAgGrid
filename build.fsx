@@ -30,6 +30,7 @@ open Fake.IO
 open Fake.Core.TargetOperators
 open Fake.IO.Globbing.Operators
 open Fake.Tools
+open Fake.IO.FileSystemOperators
 
 //-----------------------------------------------
 // Information about the project to be used at NuGet and in AssemblyInfo files
@@ -58,8 +59,8 @@ let projectUrl = sprintf "%s/%s" gitHome gitName
 let summary = "Fable React Binding for AgGrid"
 
 let copyright = "Copyright \169 2020"
-let iconUrl = "https://raw.githubusercontent.com/fsprojects/Chia/master/Chia_logo.png"
-let licenceUrl = "https://github.com/fsprojects/Chia/blob/master/LICENSE.md"
+let iconUrl = "https://raw.githubusercontent.com/fsprojects/FableAgGrid/master/FableAgGrid_logo.png"
+let licenceUrl = "https://github.com/fsprojects/FableAgGrid/blob/master/LICENSE.md"
 let configuration = DotNet.BuildConfiguration.Release
 
 // Longer description of the project
@@ -235,8 +236,10 @@ let openBrowser url =
     |> Proc.run
     |> ignore
 
+let appSrcPath = Path.getFullName "./app"
+
 Target.create "Run" (fun _ ->
-    let fablewatch = async { runTool yarnTool "webpack-dev-server" __SOURCE_DIRECTORY__ }
+    let fablewatch = async { runTool yarnTool "webpack-dev-server" appSrcPath }
 
     let browser = async {
         do! Async.Sleep 5000
@@ -260,5 +263,28 @@ Target.create "Run" (fun _ ->
     ==> "PrepareRelease"
     ==> "Pack"
     ==> "Push"
+
+let docsSrcPath = Path.getFullName "./src/docs"
+let docsDeployPath = "docs"
+
+Target.create "InstallDocs" (fun _ ->
+
+    runTool yarnTool "install --frozen-lockfile" docsSrcPath
+    runDotNet "restore" docsSrcPath )
+
+Target.create "PublishDocs" (fun _ ->
+    let docsDeployLocalPath = (docsSrcPath </> "deploy")
+    [ docsDeployPath; docsDeployLocalPath] |> Shell.cleanDirs
+    runTool yarnTool "webpack-cli -p" docsSrcPath
+    Shell.copyDir docsDeployPath docsDeployLocalPath FileFilter.allFiles
+)
+
+Target.create "RunDocs" (fun _ -> runTool yarnTool "webpack-dev-server" docsSrcPath)
+
+"InstallDocs"
+==> "RunDocs"
+
+"InstallDocs"
+==> "PublishDocs"
 
 Target.runOrDefault "Build"
