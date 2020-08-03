@@ -78,6 +78,7 @@ module Grid =
 
     type ColumnDefOptions =
         | HeaderName of string
+        | Children of obj array
         | ColumnGroupShow of bool
         | HeaderClass of obj
         | ToolPanelClass of obj
