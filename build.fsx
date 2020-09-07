@@ -236,10 +236,8 @@ let openBrowser url =
     |> Proc.run
     |> ignore
 
-let appSrcPath = Path.getFullName "./app"
-
 Target.create "Run" (fun _ ->
-    let fablewatch = async { runTool yarnTool "webpack-dev-server" appSrcPath }
+    let fablewatch = async { runTool yarnTool "webpack-dev-server" __SOURCE_DIRECTORY__ }
 
     let browser = async {
         do! Async.Sleep 5000

@@ -18,13 +18,13 @@ let rows  =
         if d < toDate then Some(d, d.AddDays(1.)) else None) fromDate
     |> Seq.toArray
 
-let values = 
+let values =
     rows
     |> Array.map (fun x ->
         [|2..3|]
         |> Array.map (fun y -> x.Hour + y |> float ))
 
-let grid (values:float [] []) = 
+let grid (values:float [] []) =
     printfn "grid"
     [| for j,date in rows |> Array.indexed ->
         createObj [
@@ -32,22 +32,22 @@ let grid (values:float [] []) =
             for i in 0..headers.Length-1 ->
                 string i ==> values.[j].[i]]|]
 
-let initTableRep = 
+let initTableRep =
     {
         HeadCol = headers
         HeadRow = rows
         Values = values
         Grid = grid values
-    }    
-printfn "initTable %A" initTableRep    
+    }
+printfn "initTable %A" initTableRep
 
 let init() = { TableRep = initTableRep }, Cmd.none
 
-let update msg state = 
-    match msg with 
+let update msg state =
+    match msg with
     | SetGridInput (input) ->
         let mutable newValues = state.TableRep.Values
         newValues.[input.Row].[input.Col] <- input.Value.Replace(",",".") |> float
         let newGrid = grid newValues
-        let newRep = {state.TableRep with Grid = newGrid }        
-        {state with TableRep = newRep},[]           
+        let newRep = {state.TableRep with Grid = newGrid }
+        {state with TableRep = newRep},[]
