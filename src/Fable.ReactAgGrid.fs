@@ -13,7 +13,8 @@ module Grid =
           field : string }
 
     type RowNode =
-        { id : string }
+        { id : string
+          data : string }
 
     type Column =
         { id : string }
@@ -76,6 +77,16 @@ module Grid =
         context: obj
     }
 
+    type RowSpanParams = {
+        node: obj // row node in question
+        data: RowNode // data for the row
+        colDef: ColDef // the col def for the column
+        column: Column // the column object in question
+        //api: GridApi // the grid's API // TODO
+        //columnApi: ColumnApi // the grid's column API // TODO
+        context: obj // the provided context
+    }
+
     type ColumnDefOptions =
         | HeaderName of string
         | Children of obj array
@@ -119,6 +130,7 @@ module Grid =
         | AutoHeight of bool
         | SingleClickEdit of bool
         | OnCellValueChanged of (Event -> unit)
+        | RowSpan of (RowSpanParams -> int)
         // TODO add remaining options
 
     let ColumnDef options =
@@ -128,10 +140,13 @@ module Grid =
         | ColumnDefs of obj array
         | DefaultColDef of obj
         | RowData of obj array
+        | PinnedTopRowData  of obj array
+        | PinnedBottomRowData  of obj array
         | RowHeight of float
         | HeaderHeight of float
         | RowStyle of obj
         | StopEditingWhenGridLosesFocus of bool
+         | SuppressRowTransform of bool
 
     let inline grid (props : GridOptions list) (elems : ReactElement list) : ReactElement =
         ofImport "AgGridReact" "ag-grid-react" (keyValueList CaseRules.LowerFirst props) elems
