@@ -143,7 +143,7 @@ module Util =
 // Build a NuGet package
 
 Target.create "Build" (fun _ ->
-    !! "src/**/*.fsproj"
+    !! "src/*.fsproj"
     |> Seq.iter (fun s ->
         let dir = Path.GetDirectoryName s
         DotNet.build id dir)
