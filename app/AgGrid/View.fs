@@ -26,6 +26,11 @@ let agGrid (tableRep :TableRep) dispatch =
                                                                 (createObj [  ]))
                                                     Grid.OnCellValueChanged (fun ev -> dispatch (SetGridInput ({Row = int ev.node.id; Col = int ev.colDef.field; Value = string ev.newValue})))] |] ] |] 
             Grid.RowData (tableRep.Grid |> Array.map box)
+            Grid.PinnedBottomRowData 
+                ([|createObj [
+                    yield "date" ==> ""
+                    for i,header in tableRep.HeadCol |> Array.indexed ->
+                        string i ==> header]|])
             Grid.RowHeight 36.
             Grid.RowStyle (createObj [ "font-size" ==> "16px" ])
             Grid.StopEditingWhenGridLosesFocus true

@@ -30,7 +30,7 @@ let grid (values:float [] []) =
         createObj [
             yield "date" ==> date.UtcDateTime
             for i in 0..headers.Length-1 ->
-                string i ==> values.[j].[i]]|]
+                string i ==> values.[j].[i]]|]              
 
 let initTableRep = 
     {
