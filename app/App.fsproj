@@ -1,9 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-      <!-- Flatpickr -->
     <Compile Include="AgGrid/Types.fs" />
     <Compile Include="AgGrid/View.fs" />
     <Compile Include="AgGrid/State.fs" />

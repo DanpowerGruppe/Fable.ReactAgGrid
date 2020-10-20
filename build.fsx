@@ -235,9 +235,10 @@ let openBrowser url =
     |> CreateProcess.ensureExitCodeWithMessage "opening browser failed"
     |> Proc.run
     |> ignore
+let npmTool = "npm"
 
 Target.create "Run" (fun _ ->
-    let fablewatch = async { runTool yarnTool "webpack-dev-server" __SOURCE_DIRECTORY__ }
+    let fablewatch = async { runTool npmTool "start" __SOURCE_DIRECTORY__ }
 
     let browser = async {
         do! Async.Sleep 5000

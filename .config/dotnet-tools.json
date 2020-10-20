@@ -3,15 +3,21 @@
   "isRoot": true,
   "tools": {
     "fake-cli": {
-      "version": "5.19.1",
+      "version": "5.20.3",
       "commands": [
         "fake"
       ]
     },
     "paket": {
-      "version": "5.245.2",
+      "version": "6.0.0-alpha042",
       "commands": [
         "paket"
+      ]
+    },
+    "fable": {
+      "version": "3.0.0-nagareyama-alpha-015",
+      "commands": [
+        "fable"
       ]
     }
   }

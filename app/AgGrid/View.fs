@@ -6,9 +6,8 @@ open Fable.React.Props
 open Fable.ReactAgGrid
 open Fable.Core.JsInterop
 open System
-open System.Text
 
-let invStringCmp str1 str2 = 
+let invStringCmp str1 str2 =
         (String.Equals((str1),(str2), StringComparison.InvariantCulture))
 
 let agGrid (tableRep :TableRep) dispatch =
@@ -23,10 +22,10 @@ let agGrid (tableRep :TableRep) dispatch =
                                                     Grid.Width 100
                                                     Grid.Editable true
                                                     Grid.Sortable true
-                                                    Grid.RowSpan (fun parameter ->                                                         
+                                                    Grid.RowSpan (fun parameter ->
                                                         if invStringCmp (parameter.data?("0").ToString()) "2" then
                                                             2
-                                                        else 
+                                                        else
                                                             1)
                                                     Grid.CellStyle
                                                         (fun parameter ->
@@ -36,7 +35,7 @@ let agGrid (tableRep :TableRep) dispatch =
                                                                 (createObj [  ]))
                                                     Grid.OnCellValueChanged (fun ev -> dispatch (SetGridInput ({Row = int ev.node.id; Col = int ev.colDef.field; Value = string ev.newValue})))] |] ] |]
             Grid.RowData (tableRep.Grid |> Array.map box)
-            Grid.PinnedBottomRowData 
+            Grid.PinnedBottomRowData
                 ([|createObj [
                     yield "date" ==> ""
                     for i,header in tableRep.HeadCol |> Array.indexed ->
