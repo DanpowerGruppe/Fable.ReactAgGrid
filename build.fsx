@@ -219,13 +219,14 @@ Target.create "Push" (fun _ -> pushPackage [] )
 
 let nodeTool = platformTool "node" "node.exe"
 let yarnTool = platformTool "yarn" "yarn.cmd"
+let npmTool = platformTool "npm" "npm.cmd"
 
 Target.create "InstallClient" (fun _ ->
     printfn "Node version:"
     runTool nodeTool "--version" __SOURCE_DIRECTORY__
     printfn "Yarn version:"
-    runTool yarnTool "--version" __SOURCE_DIRECTORY__
-    runTool yarnTool "install --frozen-lockfile" __SOURCE_DIRECTORY__
+    runTool npmTool "--version" __SOURCE_DIRECTORY__
+    runTool npmTool "install" __SOURCE_DIRECTORY__
     runDotNet "restore" clientPath
 )
 
@@ -237,14 +238,17 @@ let openBrowser url =
     |> ignore
 
 Target.create "Run" (fun _ ->
-    let fablewatch = async { runTool yarnTool "webpack-dev-server" __SOURCE_DIRECTORY__ }
-
+    let client =
+        async {
+            DotNet.exec id "fable" "watch src/Client --outDir src/Client/output --run webpack-dev-server"
+            |> ignore
+        }
     let browser = async {
         do! Async.Sleep 5000
         openBrowser "http://localhost:8080"
     }
 
-    [ fablewatch; browser ]
+    [ client; browser ]
     |> Async.Parallel
     |> Async.RunSynchronously
     |> ignore
@@ -277,7 +281,8 @@ Target.create "PublishDocs" (fun _ ->
     Shell.copyDir docsDeployPath docsDeployLocalPath FileFilter.allFiles
 )
 
-Target.create "RunDocs" (fun _ -> runTool yarnTool "webpack-dev-server" docsSrcPath)
+Target.create "RunDocs" (fun _ ->
+    DotNet.exec id "fable" "watch src/docs --outDir src/docs/output --run webpack-dev-server" |> ignore)
 
 "InstallDocs"
 ==> "RunDocs"

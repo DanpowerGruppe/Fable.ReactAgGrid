@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <DefineConstants>FABLE_COMPILER</DefineConstants>
-  </PropertyGroup> 
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Fable.ReactAgGrid.fs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="*.fsproj; *.fs;" PackagePath="fable\" />
-  </ItemGroup>  
+  </ItemGroup>
   <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>
