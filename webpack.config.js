@@ -6,7 +6,7 @@
 
 var CONFIG = {
   indexHtmlTemplate: './src/docs/index.html',
-  fsharpEntry: './src/docs/output/App.js',
+  fsharpEntry: './app/output/Client.js',
   cssEntry: './src/docs/style.scss',
   outputDir: './output',
   assetsDir: './public',

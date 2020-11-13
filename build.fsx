@@ -240,7 +240,7 @@ let openBrowser url =
 Target.create "Run" (fun _ ->
     let client =
         async {
-            DotNet.exec id "fable" "watch src/Client --outDir src/Client/output --run webpack-dev-server"
+            DotNet.exec id "fable" "watch app --outDir app/output --run webpack-dev-server"
             |> ignore
         }
     let browser = async {

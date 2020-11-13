@@ -9,7 +9,7 @@
     <Compile Include="Types.fs" />
     <Compile Include="State.fs" />
     <Compile Include="View.fs" />
-    <Compile Include="Program.fs" />
+    <Compile Include="Client.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\src\Fable.ReactAgGrid.fsproj" />
