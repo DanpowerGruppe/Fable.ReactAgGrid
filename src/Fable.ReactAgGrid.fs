@@ -87,6 +87,25 @@ module Grid =
         context: obj // the provided context
     }
 
+    type CellRendererParams = {
+        value : obj // value to be rendered
+        valueFormatted: obj // value to be rendered formatted
+        getValue: unit -> obj // convenience function to get most recent up to date value
+        setValue: (obj) -> unit // convenience to set the value
+        formatValue: (obj) -> obj // convenience to format a value using the column's formatter
+        data: obj // the row's data
+        node: RowNode // row node
+        colDef: ColDef // the cell's column definition
+        column: Column // the cell's column
+        rowIndex: int // the current index of the row (this changes after filter and sort)
+        // api: GridApi // the grid API // TODO
+        eGridCell: HTMLElement // the grid's cell a DOM div element
+        eParentOfValue: HTMLElement // the parent DOM item for the cell renderer same as eGridCell unless using checkbox selection
+        // columnApi: ColumnApi // grid column API // TODO
+        context: obj // the grid's context
+        refreshCell: unit -> unit // convenience function to refresh the cell
+    }
+
     type ColumnDefOptions =
         | HeaderName of string
         | Children of obj array
@@ -131,6 +150,7 @@ module Grid =
         | SingleClickEdit of bool
         | OnCellValueChanged of (Event -> unit)
         | RowSpan of (RowSpanParams -> int)
+        | CellRenderer of (CellRendererParams -> string)
         // TODO add remaining options
 
     let ColumnDef options =
@@ -146,7 +166,7 @@ module Grid =
         | HeaderHeight of float
         | RowStyle of obj
         | StopEditingWhenGridLosesFocus of bool
-         | SuppressRowTransform of bool
+        | SuppressRowTransform of bool
 
     let inline grid (props : GridOptions list) (elems : ReactElement list) : ReactElement =
         ofImport "AgGridReact" "ag-grid-react" (keyValueList CaseRules.LowerFirst props) elems

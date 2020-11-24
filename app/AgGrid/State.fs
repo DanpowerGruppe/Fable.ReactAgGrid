@@ -5,7 +5,7 @@ open Elmish
 open Components.AgGrid.Types
 open Fable.Core.JsInterop
 
-let headers = [|"a";"b"|]
+let headers = [|"a";"b";"c"|]
 
 let rows  =
     let toDate = DateTimeOffset.Now.AddDays(1.)
@@ -21,7 +21,7 @@ let rows  =
 let values =
     rows
     |> Array.map (fun x ->
-        [|2..3|]
+        [|2..4|]
         |> Array.map (fun y -> x.Hour + y |> float ))
 
 let grid (values:float [] []) =
