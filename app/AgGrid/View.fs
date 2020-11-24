@@ -6,7 +6,6 @@ open Fable.React.Props
 open Fable.ReactAgGrid
 open Fable.Core.JsInterop
 open System
-open System.Text
 
 let invStringCmp str1 str2 = 
         (String.Equals((str1),(str2), StringComparison.InvariantCulture))
@@ -23,11 +22,14 @@ let agGrid (tableRep :TableRep) dispatch =
                                                     Grid.Width 100
                                                     Grid.Editable true
                                                     Grid.Sortable true
-                                                    Grid.RowSpan (fun parameter ->                                                         
-                                                        if invStringCmp (parameter.data?("0").ToString()) "2" then
-                                                            2
-                                                        else 
-                                                            1)
+                                                    // Grid.RowSpan (fun parameter ->                                                         
+                                                    //     if invStringCmp (parameter.data?("0").ToString()) "2" then
+                                                    //         2
+                                                    //     else 
+                                                    //         1)
+                                                    Grid.CellRenderer 
+                                                        (fun param -> 
+                                                            ReactDomServer.renderToString (a [Href "#"] [unbox param.value])) 
                                                     Grid.CellStyle
                                                         (fun parameter ->
                                                             if (parameter.value :?> int) = 3 then
